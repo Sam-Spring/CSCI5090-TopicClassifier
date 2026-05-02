@@ -16,6 +16,26 @@ print("First 5 rows:\n", df.head())
 print("\nColumns:", df.columns)
 print("\nLabel distribution:\n", df['labels'].value_counts())
 
+# Label names:
+label_map = {
+    0: "politics",
+    1: "health",
+    2: "technology",
+    3: "entertainment",
+    4: "money_finance",
+    5: "relationship_dating",
+    6: "education_learning",
+    7: "work_careers",
+    8: "science",
+    9: "society_culture",
+    10: "gamin",
+    11: "lifestyle_hobbies",
+    12: "sports",
+    13: "automotive",
+    14: "other"
+}
+
+target_names = list(label_map.values())
 
 # Prepare Data
 X = df['text']
@@ -70,11 +90,14 @@ print(classification_report(y_test, lr_preds))
 # Confusion Matrix
 cm = confusion_matrix(y_test, lr_preds)
 
-plt.figure(figsize=(8, 6))
-sns.heatmap(cm, annot=True, fmt='d', cmap="Blues")
+plt.figure(figsize=(12, 10))
+sns.heatmap(cm, annot=True, fmt='d', xticklabels=target_names, yticklabels=target_names)
 
 plt.title("Confusion Matrix (Logistic Regression)")
 plt.xlabel("Predicted Labels")
 plt.ylabel("Actual Labels")
+plt.xticks(rotation=45, ha="right")
+plt.yticks(rotation=0)
 
+plt.tight_layout()
 plt.show()
